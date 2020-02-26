@@ -34,12 +34,12 @@ public class QuestionThree {
     }
 
     private static List<String> wordProcess(String query) {
-        String w = query.replace(" ", "")
+        String processed = query.replace(" ", "")
                 .replace("\\", "\\\\")
                 .replace(".", "\\.")
                 .replace("+", "\\+")
                 .replace("?", "\\?");
-        List<String> words = Arrays.asList(w.toLowerCase().trim().split("or"));
+        List<String> words = Arrays.asList(processed.toLowerCase().trim().split("or"));
        return words;
     }
 
@@ -47,16 +47,16 @@ public class QuestionThree {
         StringBuilder regexp = new StringBuilder();
         regexp.append("(");
         int counter = 0;
-        String prefix = "";
+        String posfix = "";
         for (String word : words) {
             if (counter < words.size() - 1)
-                prefix = "|";
+                posfix = "|";
             else
-                prefix = "";
+                posfix = "";
             if (word.matches("^[\\w\\d]+")) {
-                regexp.append("\\b" + word + "\\b" + prefix);
+                regexp.append("\\b" + word + "\\b" + posfix);
             } else {
-                regexp.append(word + prefix);
+                regexp.append(word + posfix);
             }
             counter++;
         }

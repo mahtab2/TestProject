@@ -34,12 +34,12 @@ public class QuestionTwo {
     }
 
     private static List<String> wordProcess(String query) {
-        String w = query.replace(" ", "")
+        String processed = query.replace(" ", "")
                 .replace("\\", "\\\\")
                 .replace(".", "\\.")
                 .replace("+", "\\+")
                 .replace("?", "\\?");
-        List<String> words = Arrays.asList(w.toLowerCase().trim().split("and"));
+        List<String> words = Arrays.asList(processed.toLowerCase().trim().split("and"));
         return words;
     }
     private static Pattern generatePattern(List<String> words) {

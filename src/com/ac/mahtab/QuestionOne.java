@@ -5,19 +5,23 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class QuestionOne {
     public static String srcDir = "C:\\Users\\ASUS\\Desktop\\testingProject\\test";
 
     public static void main(String[] args) throws IOException {
+        Set<String> fileNameSet ;
         Scanner scanner = new Scanner(System.in);
-        String query = scanner.next();
-        List<String> words = Arrays.asList(query.toLowerCase());
-        Set<String> fileNameSet = new HashSet<>();
-        fileNameSet = findFile(words);
+        String query = scanner.nextLine();
+        List<String> words=wordProcess(query);
+        Pattern pattern=generatePattern(words);
+        fileNameSet = findFile(pattern);
         printFileNames(fileNameSet);
     }
+
     private static void printFileNames(Set<String> fileNameSet)
     {
         if (!fileNameSet.isEmpty()) {
@@ -29,7 +33,28 @@ public class QuestionOne {
         }
     }
 
-    public static Set<String> findFile(List<String> words) {
+    private static List<String> wordProcess(String query) {
+        String processed= query.replace(" ", "")
+                .replace("\\", "\\\\")
+                .replace(".", "\\.")
+                .replace("+", "\\+")
+                .replace("?", "\\?");
+        List<String> words = Arrays.asList(processed.toLowerCase().trim());
+        return words;
+    }
+    private static Pattern generatePattern(List<String> words) {
+        StringBuilder regexp = new StringBuilder();
+        for (String word : words) {
+            if (word.matches("^[\\w\\d]+")) {
+                regexp.append("(?=.*").append("\\b" + word + "\\b").append(")");
+            } else {
+                regexp.append("(?=.*").append(word).append(")");
+            }
+        }
+        return Pattern.compile(regexp.toString());
+    }
+
+    public static Set<String> findFile(Pattern pattern) {
         File folder = new File(srcDir);
         File[] listOfFiles = folder.listFiles();
         Set<String> fileNameSet = new HashSet<>();
@@ -37,8 +62,8 @@ public class QuestionOne {
             for (File file : listOfFiles) {
                 if (file.isFile()) {
                     String content = fileToString(srcDir + "\\" + file.getName());
-                    List<String> inputStringList = Arrays.asList(content.split(" "));
-                    if (inputStringList.containsAll(words)) {
+                    Matcher m = pattern.matcher(content);
+                    if (m.find()) {
                         fileNameSet.add(file.getName());
                     }
                 }
@@ -48,17 +73,17 @@ public class QuestionOne {
     }
 
     public static String fileToString(String filePath) {
-        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder contentBuilder = new StringBuilder();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
 
             String currentLine;
             while ((currentLine = br.readLine()) != null) {
-                stringBuilder.append(currentLine).append(" ");
+                contentBuilder.append(currentLine).append(" ");
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return stringBuilder.toString().toLowerCase();
+        return contentBuilder.toString().toLowerCase();
 
     }
 }

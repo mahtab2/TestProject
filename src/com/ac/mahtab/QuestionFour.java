@@ -13,7 +13,7 @@ public class QuestionFour {
     public static String srcDir = "C:\\Users\\ASUS\\Desktop\\testingProject\\test";
 
     public static void main(String[] args) throws IOException {
-        Set<String> fileNameSet = new HashSet<>();
+        Set<String> fileNameSet ;
         Scanner scanner = new Scanner(System.in);
         String query = scanner.nextLine();
         List<String> words = wordProcess(query);
@@ -35,12 +35,12 @@ public class QuestionFour {
     }
 
     private static List<String> wordProcess(String query) {
-        String w = query.replace(" ", "")
+        String processed = query.replace(" ", "")
                 .replace("\\", "\\\\")
                 .replace(".", "\\.")
                 .replace("+", "\\+")
                 .replace("?", "\\?");
-        List<String> words = Arrays.asList(w.toLowerCase().trim().split("or|and"));
+        List<String> words = Arrays.asList(processed.toLowerCase().trim().split("or|and"));
         return words;
     }
 
@@ -58,20 +58,20 @@ public class QuestionFour {
     private static Pattern generatePattern(List<String> words, List<String> operators) {
         StringBuilder regexp = new StringBuilder();
         int counter = 0;
-        String prefix = "";
+        String posfix = "";
         for (String word : words) {
             if (counter < words.size() - 1) {
                 if (operators.get(counter).equalsIgnoreCase("or")) {
-                    prefix = "|";
+                    posfix = "|";
                 } else {
-                    prefix = "";
+                    posfix = "";
                 }
             } else
-                prefix = "";
+                posfix = "";
             if (word.matches("^[\\w\\d]+")) {
-                regexp.append("(?=.*").append("\\b" + word + "\\b").append(")" + prefix);
+                regexp.append("(?=.*").append("\\b" + word + "\\b").append(")" + posfix);
             } else {
-                regexp.append("(?=.*").append(word).append(")" + prefix);
+                regexp.append("(?=.*").append(word).append(")" + posfix);
             }
             counter++;
         }
