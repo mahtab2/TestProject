@@ -1,2 +1,3 @@
 hi user
-this is a sample test .
+this is a sample test . ( ) * ^ &
+| ] [ % $ # @ 1 890 { }  ; : " ' - _

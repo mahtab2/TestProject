@@ -38,7 +38,16 @@ public class QuestionThree {
                 .replace("\\", "\\\\")
                 .replace(".", "\\.")
                 .replace("+", "\\+")
-                .replace("?", "\\?");
+                .replace("?", "\\?")
+                .replace("(", "\\(")
+                .replace(")", "\\)")
+                .replace("*", "\\*")
+                .replace("^", "\\^")
+                .replace("$", "\\$")
+                .replace("|", "\\|")
+                .replace("{", "\\{")
+                .replace("}", "\\}")
+                ;
         List<String> words = Arrays.asList(processed.toLowerCase().trim().split("or"));
        return words;
     }

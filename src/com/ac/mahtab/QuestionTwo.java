@@ -38,7 +38,16 @@ public class QuestionTwo {
                 .replace("\\", "\\\\")
                 .replace(".", "\\.")
                 .replace("+", "\\+")
-                .replace("?", "\\?");
+                .replace("?", "\\?")
+                .replace("(", "\\(")
+                .replace(")", "\\)")
+                .replace("*", "\\*")
+                .replace("^", "\\^")
+                .replace("$", "\\$")
+                .replace("|", "\\|")
+                .replace("{", "\\{")
+                .replace("}", "\\}")
+                ;
         List<String> words = Arrays.asList(processed.toLowerCase().trim().split("and"));
         return words;
     }
