@@ -17,6 +17,9 @@ import java.util.regex.Pattern;
  */
 
 public class QuestionOne {
+    /**
+     * {@value #srcDir} path to directory that contains files
+     */
     public static String srcDir = "C:\\Users\\ASUS\\Desktop\\testingProject\\test";
 
     /**
