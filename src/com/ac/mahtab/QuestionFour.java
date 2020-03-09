@@ -117,6 +117,7 @@ public class QuestionFour {
             }
             counter++;
         }
+        System.out.println(regexp.toString());
         return Pattern.compile(regexp.toString());
     }
     /**
