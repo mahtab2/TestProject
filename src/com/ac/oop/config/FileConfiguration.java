@@ -14,7 +14,7 @@ import java.util.Map;
  * @since   2020-03-9
  */
 public class FileConfiguration {
-    private final String srcDir = "C:\\Users\\ASUS\\Documents\\term6\\private\\untitled2\\test";
+    private final String srcDir = "C:\\Users\\ASUS\\Desktop\\testingProject\\test";
     private  Map<String, String> fileData;
 
     public FileConfiguration() {
